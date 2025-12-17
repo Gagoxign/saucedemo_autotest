@@ -3,7 +3,7 @@ Library    SeleniumLibrary
 Resource    ../resource/login_logout.resource
 
 *** Keywords ***
-Scenario Login With Valid Username And Password
+Scenario Login With Valid Username And Password Then Logout
     [Arguments]    ${username}    ${password}
     TRY
         Connect by browser
@@ -27,8 +27,8 @@ Scenario Login With Invalid Username And Password
     Close Browser
     
 *** Test Cases ***
-Login with valid username and password
-    [Template]    Scenario Login With Valid Username And Password
+Login with valid username and password then logout
+    [Template]    Scenario Login With Valid Username And Password Then Logout
     standard_user    secret_sauce
     # locked_out_user    secret_sauce
     problem_user    secret_sauce
