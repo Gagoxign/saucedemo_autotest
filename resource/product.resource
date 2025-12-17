@@ -1,0 +1,57 @@
+*** Settings ***
+Library    SeleniumLibrary
+Resource    common.resource
+
+*** Variables ***
+&{product_0}    name=Sauce Labs Backpack    price=$29.99
+&{product_1}    name=Sauce Labs Bike Light    price=$9.99
+&{product_2}    name=Sauce Labs Bolt T-Shirt    price=$15.99
+&{product_3}    name=Sauce Labs Fleece Jacket    price=$49.99
+&{product_4}    name=Sauce Labs Onesie    price=$7.99
+&{product_5}    name=Test.allTheThings() T-Shirt (Red)    price=$15.99
+
+@{products}    &{product_0}    &{product_1}    &{product_2}
+...            &{product_3}    &{product_4}    &{product_5}
+
+&{add_product_button}    
+...    Sauce Labs Backpack=id:add-to-cart-sauce-labs-backpack    
+...    Sauce Labs Bike Light=id:add-to-cart-sauce-labs-bike-light    
+...    Sauce Labs Bolt T-Shirt=id:add-to-cart-sauce-labs-bolt-t-shirt    
+...    Sauce Labs Fleece Jacket=id:add-to-cart-sauce-labs-fleece-jacket    
+...    Sauce Labs Onesie=id:add-to-cart-sauce-labs-onesie    
+...    Test.allTheThings() T-Shirt (Red)=id:add-to-cart-test.allthethings()-t-shirt-(red)
+
+&{remove_product_button}    
+...    Sauce Labs Backpack=id:remove-sauce-labs-backpack    
+...    Sauce Labs Bike Light=id:remove-sauce-labs-bike-light    
+...    Sauce Labs Bolt T-Shirt=id:remove-sauce-labs-bolt-t-shirt    
+...    Sauce Labs Fleece Jacket=id:remove-sauce-labs-fleece-jacket    
+...    Sauce Labs Onesie=id:remove-sauce-labs-onesie    
+...    Test.allTheThings() T-Shirt (Red)=id:remove-test.allthethings()-t-shirt-(red)
+
+*** Keywords ***
+Click Add To Cart Button on product
+    [Arguments]    ${product_name}
+    Click Element     ${add_product_button}[${product_name}]
+
+Click Remove Button on product
+    [Arguments]    ${product_name}
+    Click Element     ${remove_product_button}[${product_name}]
+
+Open Product Detail
+    [Arguments]    ${product_name}
+    Click Element    //div[@data-test="inventory-item-name" and text()="${product_name}"]
+    Wait Until Element Is Visible With Warning    //div[@class="inventory_details"]    warn_after=1    timeout=5
+
+Click Add To Cart Button On Detail Page
+    Click Element     id=add-to-cart
+    Element Should Not Be Visible    id=add-to-cart
+
+Click Remove Button On Detail Page
+    Click Element     id=remove
+    Element Should Not Be Visible    id=remove
+
+Go Back To Products Page
+    [Arguments]    ${warn_after}=1    ${timeout}=5
+    Click Element    id=back-to-products
+    Wait Until Element Is Visible With Warning    id=inventory_container    ${warn_after}    ${timeout}

@@ -1,5 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
+Resource    common.resource
 
 *** Variables ***
 ${base_url}    https://www.saucedemo.com
@@ -17,22 +18,6 @@ Input Username ${username}
 
 Input Password ${password}
     Input Text    ${locator}[password]    ${password}
-
-Wait Until Element Is Visible With Warning
-    [Arguments]    ${locator}    ${warn_after}    ${timeout}
-    ${start_time}=    Get Time    epoch
-    Wait Until Element Is Visible    ${locator}    ${timeout}
-    ${end_time}=      Get Time    epoch
-    ${elapsed}=  Evaluate    ${end_time} - ${start_time}
-    Run Keyword If    ${elapsed} > ${warn_after}    Log    Element took ${elapsed}s to appear    WARN
-
-Click Button With Warning
-    [Arguments]    ${locator}    ${warn_after}
-    ${start_time}=    Get Time    epoch
-    Click Button    ${locator}
-    ${end_time}=      Get Time    epoch
-    ${elapsed}=  Evaluate    ${end_time} - ${start_time}
-    Run Keyword If    ${elapsed} > ${warn_after}    Log    Clicking on button took ${elapsed}s    WARN
 
 Click Login Button
     [Arguments]    ${warn_after}=1
