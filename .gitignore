@@ -1,0 +1,5 @@
+venv/
+result/
+*.html
+*.xml
+*.png
