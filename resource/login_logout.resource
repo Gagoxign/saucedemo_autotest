@@ -35,9 +35,16 @@ Click Button With Warning
     Run Keyword If    ${elapsed} > ${warn_after}    Log    Clicking on button took ${elapsed}s    WARN
 
 Click Login Button
-    [Arguments]    ${warn_after}=1    ${timeout}=5
+    [Arguments]    ${warn_after}=1
     Click Button With Warning    ${locator}[login_button]    ${warn_after}
+
+Login successfully
+    [Arguments]    ${warn_after}=1    ${timeout}=5
     Wait Until Element Is Visible With Warning    id=inventory_container    ${warn_after}    ${timeout}
+
+Receive error message ${expected_message}
+    [Arguments]        ${timeout}=5
+    Wait Until Page Contains    ${expected_message}    ${timeout}
 
 Open Burger Menu
     [Arguments]    ${warn_after}=1    ${timeout}=5
