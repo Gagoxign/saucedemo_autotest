@@ -15,14 +15,8 @@ Resource    common.resource
 ...    finish button=id=finish
 ...    checkout complete page=id=checkout_complete_container
 ...    back home button=id=back-to-products
-...    products page=id=inventory_container
 
 *** Keywords ***
-Open Cart
-    [Arguments]    ${warn_after}=1    ${timeout}=5
-    Click Element    id=shopping_cart_container
-    Wait Until Element Is Visible With Warning    ${page_locator}[cart page]    ${warn_after}    ${timeout}
-
 Checkout
     [Arguments]    ${warn_after}=1    ${timeout}=5
     Click Button With Warning    ${checkout_locator}[checkout button]    ${warn_after}
@@ -50,4 +44,4 @@ Finish Checkout
 Back To Products
     [Arguments]    ${warn_after}=1    ${timeout}=5
     Click Button With Warning    ${checkout_locator}[back home button]    ${warn_after}
-    Wait Until Element Is Visible With Warning    ${checkout_locator}[products page]    ${warn_after}    ${timeout}
+    Wait Until Element Is Visible With Warning    ${page_locator}[products page]    ${warn_after}    ${timeout}

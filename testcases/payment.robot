@@ -2,6 +2,7 @@
 Library    SeleniumLibrary
 Resource    ../resource/payment.resource
 Resource    ../resource/login_logout.resource
+Resource    ../resource/product.resource
 Suite Setup    Login by ${username} ${password}
 Suite Teardown    Close Browser
 Documentation    
