@@ -10,8 +10,13 @@ Resource    common.resource
 &{product_4}    name=Sauce Labs Onesie    price=$7.99
 &{product_5}    name=Test.allTheThings() T-Shirt (Red)    price=$15.99
 
-@{products}    &{product_0}    &{product_1}    &{product_2}
-...            &{product_3}    &{product_4}    &{product_5}
+@{products}
+...    &{product_0}
+...    &{product_1}
+...    &{product_2}
+...    &{product_3}
+...    &{product_4}
+...    &{product_5}
 
 &{add_product_button_locator}    
 ...    Sauce Labs Backpack=id:add-to-cart-sauce-labs-backpack    
@@ -33,6 +38,12 @@ Resource    common.resource
 ...    add button=id=add-to-cart
 ...    remove button=id=remove
 ...    back button=id=back-to-products
+
+&{cart_locator}    
+...    Cart Link=xpath=//a[@data-test="shopping-cart-link"]
+...    Cart Badge=xpath=//a[@data-test="shopping-cart-link"]//span[@data-test="shopping-cart-badge"]
+...    Continue Shopping Button=id=continue-shopping
+
 
 *** Keywords ***
 Click Add To Cart Button on product
@@ -60,3 +71,23 @@ Go Back To Products Page
     [Arguments]    ${warn_after}=1    ${timeout}=5
     Click Element    ${detail_product_locator}[back button]
     Wait Until Element Is Visible With Warning    ${page_locator}[products page]    ${warn_after}    ${timeout}
+
+Open Cart
+    [Arguments]    ${warn_after}=1    ${timeout}=5
+    Click Element    ${cart_locator}[Cart Link]
+    Wait Until Element Is Visible With Warning    ${page_locator}[cart page]    ${warn_after}    ${timeout}
+
+Count Item In Cart
+    TRY
+        ${text}=    Get Value    ${cart_locator}[Cart Badge]
+        ${count_item}=    Convert To Integer    ${text}
+    EXCEPT
+        ${count_item}=    Convert To Integer    0
+    END
+    RETURN    ${count_item}
+
+Continue Shopping
+    [Arguments]    ${warn_after}=1    ${timeout}=5
+    Click Element    ${cart_locator}[Continue Shopping Button]
+    Wait Until Element Is Visible With Warning    ${page_locator}[products page]    ${warn_after}    ${timeout}
+    
