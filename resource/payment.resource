@@ -15,6 +15,12 @@ Resource    common.resource
 ...    finish button=id=finish
 ...    checkout complete page=id=checkout_complete_container
 ...    back home button=id=back-to-products
+...    cancel button=id=cancel
+
+&{error_message}
+...    no first name=Error: First Name is required
+...    no last name=Error: Last Name is required
+...    no postal code=Error: Postal Code is required
 
 *** Keywords ***
 Checkout
@@ -31,10 +37,15 @@ Input Last Name ${last_name}
 Input Postal Code ${postal_code}
     Input Text    ${checkout_locator}[postal code]    ${postal_code}
 
-Continue Checkout
+Continue Checkout Successfully
     [Arguments]    ${warn_after}=1    ${timeout}=5
     Click Button With Warning    ${checkout_locator}[continue button]    ${warn_after}
     Wait Until Element Is Visible With Warning    ${checkout_locator}[checkout summary page]    ${warn_after}    ${timeout}
+
+Continue Checkout With Error ${expected_error}
+    [Arguments]    ${warn_after}=1
+    Click Button With Warning    ${checkout_locator}[continue button]    ${warn_after}
+    Page Should Contain    ${expected_error}
 
 Finish Checkout
     [Arguments]    ${warn_after}=1    ${timeout}=5
@@ -45,3 +56,8 @@ Back To Products
     [Arguments]    ${warn_after}=1    ${timeout}=5
     Click Button With Warning    ${checkout_locator}[back home button]    ${warn_after}
     Wait Until Element Is Visible With Warning    ${page_locator}[products page]    ${warn_after}    ${timeout}
+
+Cancel Payment
+    [Arguments]    ${warn_after}=1
+    Click Button With Warning    ${checkout_locator}[cancel button]    ${warn_after}
+    
