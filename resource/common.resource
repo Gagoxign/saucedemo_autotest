@@ -1,4 +1,5 @@
 *** Settings ***
+Documentation    Contain common variables and keywords (functions) that will be used by different test suite 
 Library    SeleniumLibrary
 
 *** Variables ***

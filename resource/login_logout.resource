@@ -1,4 +1,5 @@
 *** Settings ***
+Documentation    Contain variables and keywords used for login and logout action
 Library    SeleniumLibrary
 Resource    common.resource
 

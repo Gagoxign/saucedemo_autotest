@@ -1,4 +1,5 @@
 *** Settings ***
+Documentation    Contain variables and keywords for products and cart page
 Library    SeleniumLibrary
 Resource    common.resource
 

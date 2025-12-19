@@ -1,4 +1,5 @@
 *** Settings ***
+Documentation    Contain variables and keywords used for checkout action
 Library    SeleniumLibrary
 Resource    common.resource
 
