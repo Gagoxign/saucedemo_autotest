@@ -2,20 +2,12 @@
 Library    SeleniumLibrary
 Resource    ../resource/login_logout.resource
 Resource    ../resource/product.resource
-Suite Setup    Login by ${username}
+Suite Setup    Login by ${username} ${password}
 Suite Teardown    Close Browser
 
 *** Variables ***
 ${username}    standard_user
 ${password}    secret_sauce
-
-*** Keywords ***
-Login by ${username}
-    Connect by browser
-    Input Username ${username}
-    Input Password ${password}
-    Click Login Button
-    Login successfully
 
 *** Test Cases ***
 Add item and remove it in Products page

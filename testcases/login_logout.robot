@@ -6,11 +6,7 @@ Resource    ../resource/login_logout.resource
 Scenario Login With Valid Username And Password Then Logout
     [Arguments]    ${username}    ${password}
     TRY
-        Connect by browser
-        Input Username ${username}
-        Input Password ${password}
-        Click Login Button
-        Login successfully
+        Login by ${username} ${password}
         Open Burger Menu
         Click Logout
     FINALLY
